@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import CategoryBtn from "./components/CategoryBtn";
 import Quote from "./components/Quote";
+import config from "./config";
 
 function App() {
   const [category, setCategory] = useState("");
@@ -12,7 +13,7 @@ function App() {
     try {
       const url = `https://api.api-ninjas.com/v1/quotes?category=${category}`;
       const headers = {
-        "X-Api-Key": "BJxzg9axIff0j4ZQh1R+Rg==y5SgvK79XQluV1SA",
+        "X-Api-Key": config.API_KEY,
       };
       //   const response = await axios.get(url, { headers });
       //   setData(response.data);
