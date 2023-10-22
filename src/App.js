@@ -7,7 +7,7 @@ import { generate } from "./services/api/quote";
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(true);
+  const [error, setError] = useState(null);
 
   const [category, setCategory] = useState("");
   const [randomQuote, setRandomQuote] = useState({});
@@ -19,7 +19,7 @@ function App() {
       // For the first time, there is no category and it will use the first item for example
       const response = await generate(category || categories[0].title);
 
-      setRandomQuote(response[Math.floor(Math.random() * response.length)][0]);
+      setRandomQuote(response[Math.floor(Math.random() * response.length)]);
     } catch (error) {
       setError(error.message);
     }
