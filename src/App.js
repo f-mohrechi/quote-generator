@@ -6,20 +6,25 @@ import Quote from "./components/Quote";
 import { generate } from "./services/api/quote";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const [category, setCategory] = useState("");
   const [randomQuote, setRandomQuote] = useState({});
-  const [data, setData] = useState(null);
 
   const fetchData = async () => {
+    setLoading(true);
+
     try {
       // For the first time, there is no category and it will use the first item for example
       const response = await generate(category || categories[0].title);
 
-      setData(response);
       setRandomQuote(response[Math.floor(Math.random() * response.length)]);
     } catch (error) {
-      console.error("Error: ", error.message);
+      setError(error.message);
     }
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -47,7 +52,8 @@ function App() {
   return (
     <>
       <div className="w-[700px] m-auto pt-20">
-        <Quote data={data} randomQuote={randomQuote} />
+        {/* Passing quote, loading and error. Data is removed */}
+        <Quote randomQuote={randomQuote} loading={loading} error={error} />
 
         <p className="mb-5 text-gray-700">
           category:
